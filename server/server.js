@@ -16,6 +16,20 @@ const app = express();
 app.use(cors({ origin: CLIENT_URL ? CLIENT_URL.split(",").map((s) => s.trim()) : true }));
 app.use(express.json());
 
+app.get("/", (_req, res) => {
+  res.json({
+    status: "online",
+    message: "QuickMart API is running smoothly!",
+    database: mongoose.connection.readyState === 1 ? "connected" : "disconnected",
+    endpoints: {
+      health: "/api/health",
+      products: "/api/products",
+      auth: "/api/auth",
+      orders: "/api/orders"
+    }
+  });
+});
+
 app.get("/api/health", (_req, res) => res.json({ ok: true, db: mongoose.connection.readyState === 1 }));
 app.use("/api/auth", authRoutes);
 app.use("/api/products", productRoutes);
