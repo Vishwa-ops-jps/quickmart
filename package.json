@@ -1,0 +1,10 @@
+{
+  "name": "quickcart",
+  "private": true,
+  "scripts": {
+    "setup": "npm i && npm --prefix server i && npm --prefix client i",
+    "seed": "npm --prefix server run seed",
+    "dev": "concurrently -n api,web -c blue,green \"npm --prefix server run dev\" \"npm --prefix client run dev\""
+  },
+  "devDependencies": { "concurrently": "^9.0.1" }
+}
